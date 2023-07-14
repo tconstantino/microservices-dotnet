@@ -20,6 +20,7 @@ builder.Services.AddDbContext<AppDbContext>(opt => opt.UseMySql(connectionString
 builder.Services.AddScoped<IRestauranteRepository, RestauranteRepository>();
 
 builder.Services.AddHttpClient<IItemHttpClient, ItemHttpClient>();
+builder.Services.AddHttpClient<IItemServiceHttpClient, ItemServiceHttpClient>();
 builder.Services.AddSingleton<IMessageBusClient, MessageBusClient>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

@@ -14,7 +14,9 @@ namespace RestauranteService.AsyncDataServices
         public MessageBusClient(IConfiguration configuration)
         {
             _configuration = configuration;
-            _connection = new ConnectionFactory() { HostName = "localhost", Port = 5672 }.CreateConnection();
+            var rabbitHost = _configuration["RabbitMQHost"];
+            var rabbitPort = _configuration["RabbitMQPort"];
+            _connection = new ConnectionFactory() { HostName = rabbitHost, Port = int.Parse(rabbitPort) }.CreateConnection();
             _channel = _connection.CreateModel();
             _channel.ExchangeDeclare(exchange: "trigger", type: ExchangeType.Fanout);
         }

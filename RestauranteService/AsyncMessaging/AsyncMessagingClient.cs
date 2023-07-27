@@ -1,5 +1,7 @@
 ﻿using RabbitMQ.Client;
 using RestauranteService.Dtos;
+using System.Text;
+using System.Text.Json;
 
 namespace RestauranteService.AsyncMessaging
 {
@@ -20,12 +22,23 @@ namespace RestauranteService.AsyncMessaging
                 HostName = rabbitHost, 
                 Port = int.Parse(rabbitPort)
             }.CreateConnection();
+
             _channel = _connection.CreateModel();
             _channel.ExchangeDeclare(exchange: "trigger", type: ExchangeType.Fanout);
         }
-        public void PublicarRestaurante(RestauranteCreateDto restauranteCreateDto)
+        public void PublicarRestaurante(RestauranteReadDto restauranteReadDto)
         {
-            throw new NotImplementedException();
+            string mensagem = JsonSerializer.Serialize(restauranteReadDto);
+            byte[] body = Encoding.UTF8.GetBytes(mensagem);
+
+            _channel.BasicPublish(exchange: "triger",
+                routingKey: "",
+                basicProperties: null,
+                body: body
+                );
+
+
+
         }
     }
 }

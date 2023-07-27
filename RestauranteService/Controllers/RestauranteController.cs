@@ -62,7 +62,7 @@ public class RestauranteController : ControllerBase
 
         _itemServiceHttpClient.EnviaRestauranteParaItemService(restauranteReadDto);
 
-        _asyncMessagingClient.PublicarRestaurante(restauranteCreateDto);     
+        _asyncMessagingClient.PublicarRestaurante(restauranteReadDto);     
 
 
         return CreatedAtRoute(nameof(GetRestauranteById), new { restauranteReadDto.Id }, restauranteReadDto);

@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using RestauranteService.AsyncMessaging;
 using RestauranteService.Data;
 using RestauranteService.Http;
 
@@ -19,6 +20,8 @@ builder.Services.AddDbContext<AppDbContext>(opt => opt.UseMySql(connectionString
 builder.Services.AddScoped<IRestauranteRepository, RestauranteRepository>();
 
 builder.Services.AddHttpClient<IItemServiceHttpClient, ItemServiceHttpClient>();
+
+builder.Services.AddSingleton<IAsyncMessagingClient, AsyncMessagingClient>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

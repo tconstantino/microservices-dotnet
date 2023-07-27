@@ -36,9 +36,6 @@ namespace RestauranteService.AsyncMessaging
                 basicProperties: null,
                 body: body
                 );
-
-
-
         }
     }
 }

@@ -1,6 +1,5 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using RestauranteService.AsyncDataServices;
 using RestauranteService.Data;
 using RestauranteService.Dtos;
 using RestauranteService.Http;
@@ -14,18 +13,15 @@ public class RestauranteController : ControllerBase
 {
     private readonly IRestauranteRepository _repository;
     private readonly IMapper _mapper;
-    private readonly IMessageBusClient _messageBusClient;
     private readonly IItemServiceHttpClient _itemServiceHttpClient;
 
     public RestauranteController(
         IRestauranteRepository repository,
         IMapper mapper,
-        IMessageBusClient messageBusClient,
         IItemServiceHttpClient itemServiceHttpClient)
     {
         _repository = repository;
         _mapper = mapper;
-        _messageBusClient = messageBusClient;
         _itemServiceHttpClient = itemServiceHttpClient;
     }
 
@@ -61,9 +57,7 @@ public class RestauranteController : ControllerBase
 
         _itemServiceHttpClient.EnviaRestauranteParaItemService(restauranteReadDto);
 
-        var restaurantePublishedDto = _mapper.Map<RestaurantePublishedDto>(restauranteReadDto);
-        restaurantePublishedDto.Evento = "Restaurante_Published";
-        _messageBusClient.PublishRestaurante(restaurantePublishedDto);
+       
 
 
         return CreatedAtRoute(nameof(GetRestauranteById), new { restauranteReadDto.Id }, restauranteReadDto);

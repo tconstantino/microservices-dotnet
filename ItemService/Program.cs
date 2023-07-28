@@ -1,4 +1,6 @@
+using ItemService.AsyncMessaging;
 using ItemService.Data;
+using ItemService.EventProcess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
@@ -14,6 +16,8 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<AppDbContext>(opt => opt.UseInMemoryDatabase("InMemoryDatabase"));
 builder.Services.AddScoped<IItemRepository, ItemRepository>();
+builder.Services.AddHostedService<AsyncMessagingClient>();
+builder.Services.AddSingleton<IEventProcessor, EventProcessor>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddSwaggerGen(c =>
 {

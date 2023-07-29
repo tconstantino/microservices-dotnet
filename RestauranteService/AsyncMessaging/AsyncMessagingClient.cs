@@ -31,7 +31,7 @@ namespace RestauranteService.AsyncMessaging
             string mensagem = JsonSerializer.Serialize(restauranteReadDto);
             byte[] body = Encoding.UTF8.GetBytes(mensagem);
 
-            _channel.BasicPublish(exchange: "triger",
+            _channel.BasicPublish(exchange: "trigger",
                 routingKey: "",
                 basicProperties: null,
                 body: body

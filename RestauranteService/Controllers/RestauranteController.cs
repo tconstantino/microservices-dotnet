@@ -60,7 +60,7 @@ public class RestauranteController : ControllerBase
 
         var restauranteReadDto = _mapper.Map<RestauranteReadDto>(restaurante);
 
-        _itemServiceHttpClient.EnviaRestauranteParaItemService(restauranteReadDto);
+        //_itemServiceHttpClient.EnviaRestauranteParaItemService(restauranteReadDto);
 
         _asyncMessagingClient.PublicarRestaurante(restauranteReadDto);     
 

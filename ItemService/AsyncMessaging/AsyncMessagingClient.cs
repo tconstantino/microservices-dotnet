@@ -31,8 +31,8 @@ namespace ItemService.AsyncMessaging
             _nomeDaFila = _channel.QueueDeclare().QueueName;
             _channel.QueueBind(
                 queue: _nomeDaFila,
-                exchange:
-                "trigger", routingKey: ""
+                exchange: "trigger",
+                routingKey: ""
                 );
 
             _eventProcessor = eventProcessor;
